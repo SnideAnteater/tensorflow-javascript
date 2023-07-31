@@ -119,7 +119,7 @@ function detectPoseInRealTime(video) {
       console.log(keypoints);
       if (score >= minPoseConfidence) {
         drawKeypoints(keypoints, minPartConfidence, keypointCtx);
-        // drawSkeleton(keypoints, minPartConfidence, keypointCtx);
+        drawSkeleton(keypoints, minPartConfidence, keypointCtx);
       }
     });
 
