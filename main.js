@@ -8,12 +8,13 @@ import {
   isMobile,
   toggleLoadingUI,
   setStatusText,
+  drawCircle,
 } from "./utils/utils";
 
 // Camera stream video element
 let video;
-let videoWidth = 300;
-let videoHeight = 300;
+let videoWidth = 500;
+let videoHeight = 500;
 
 // Canvas
 let canvasWidth = 800;
@@ -33,6 +34,8 @@ const defaultQuantBytes = 2;
 const defaultMultiplier = 1.0;
 const defaultStride = 16;
 const defaultInputResolution = 200;
+
+let circle; // = new Circle(300, 300, 100, "black");
 
 /**
  * Loads a the camera to be used in the demo
@@ -92,13 +95,7 @@ function detectPoseInRealTime(video) {
     // Begin monitoring code for frames per second
     let poses = [];
 
-    videoCtx.clearRect(0, 0, videoWidth, videoHeight);
-    // Draw video
-    videoCtx.save();
-    videoCtx.scale(-1, 1);
-    videoCtx.translate(-videoWidth, 0);
-    videoCtx.drawImage(video, 0, 0, videoWidth, videoHeight);
-    videoCtx.restore();
+    drawCircle(keypointCtx, circle);
 
     // Creates a tensor from an image
     const input = tf.browser.fromPixels(canvas);
@@ -111,12 +108,12 @@ function detectPoseInRealTime(video) {
     });
 
     poses = poses.concat(all_poses);
-    // console.log(poses[0].keypoints);
+    // console.log(keypointCtx);
     input.dispose();
 
     keypointCtx.clearRect(0, 0, videoWidth, videoHeight);
     poses.forEach(({ score, keypoints }) => {
-      console.log(keypoints);
+      // console.log(keypoints);
       if (score >= minPoseConfidence) {
         drawKeypoints(keypoints, minPartConfidence, keypointCtx);
         drawSkeleton(keypoints, minPartConfidence, keypointCtx);

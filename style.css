@@ -40,11 +40,20 @@ body {
 
 .camera-canvas {
   position: absolute;
+  transform: translate(50%, -50%) scaleX(-1);
+  transform-origin: 0 0;
+  left: 50vw;
+  top: 50vh;
+  /* width: 30vw; */
+}
+
+.point-canvas {
+  position: absolute;
   transform: translate(-50%, -50%);
   transform-origin: 0 0;
   left: 50vw;
   top: 50vh;
-  width: 30vw;
+  /* width: 30vw; */
 }
 
 #main {

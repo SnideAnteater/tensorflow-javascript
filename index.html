@@ -10,19 +10,9 @@
     <div id="info" style="display: none"></div>
     <div class="canvas-container">
       <div id="main">
-        <video
-          id="video"
-          playsinline=""
-          style="
-            -moz-transform: scaleX(-1);
-            -o-transform: scaleX(-1);
-            -webkit-transform: scaleX(-1);
-            transform: scaleX(-1);
-            display: none;
-          "
-        ></video>
-        <canvas id="output" class="camera-canvas"></canvas>
-        <canvas id="keypoints" class="camera-canvas"></canvas>
+        <video id="video" class="camera-canvas" playsinline=""></video>
+        <canvas id="output" class="point-canvas"></canvas>
+        <canvas id="keypoints" class="point-canvas"></canvas>
       </div>
     </div>
     <script type="module" src="/main.js"></script>

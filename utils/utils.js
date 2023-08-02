@@ -17,8 +17,9 @@
 
 import * as posenet from "@tensorflow-models/posenet";
 import * as tf from "@tensorflow/tfjs";
+import { Circle } from "./circle";
 
-const color = "aqua";
+const color = "red";
 const boundingBoxColor = "red";
 const lineWidth = 2;
 
@@ -112,6 +113,8 @@ export function drawSkeleton(keypoints, minConfidence, ctx, scale = 1) {
  */
 export function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
   for (let i = 0; i < keypoints.length; i++) {
+    if (keypoints[i].part === "rightWrist") {
+    }
     const keypoint = keypoints[i];
 
     if (keypoint.score < minConfidence) {
@@ -138,3 +141,9 @@ export function setStatusText(text) {
   const resultElement = document.getElementById("status");
   resultElement.innerText = text;
 }
+
+export function drawCircle(ctx, circle) {
+  circle = new Circle(300, 300, 100, "black");
+}
+
+export function collisionDetection(circle1, circle2) {}
