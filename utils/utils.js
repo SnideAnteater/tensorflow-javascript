@@ -113,8 +113,6 @@ export function drawSkeleton(keypoints, minConfidence, ctx, scale = 1) {
  */
 export function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
   for (let i = 0; i < keypoints.length; i++) {
-    if (keypoints[i].part === "rightWrist") {
-    }
     const keypoint = keypoints[i];
 
     if (keypoint.score < minConfidence) {
@@ -143,7 +141,19 @@ export function setStatusText(text) {
 }
 
 export function drawCircle(ctx, circle) {
-  circle = new Circle(300, 300, 100, "black");
+  ctx.beginPath();
+  ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
+  ctx.strokeStyle = circle.name.toString();
+  ctx.fillStyle = circle.name.toString();
+  ctx.stroke();
+  ctx.fillText(circle.name, circle.x, circle.y);
 }
 
-export function collisionDetection(circle1, circle2) {}
+export function checkCollision(circle1, circle2) {
+  // console.log(circle1, circle2);
+  let sideA = Math.abs(circle1.y - circle2.y);
+  let sideB = Math.abs(circle1.x - circle2.x);
+  let distance = Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
+
+  return distance <= circle1.radius + circle2.radius;
+}

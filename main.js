@@ -9,12 +9,14 @@ import {
   toggleLoadingUI,
   setStatusText,
   drawCircle,
+  checkCollision,
 } from "./utils/utils";
+import { Circle } from "./utils/circle";
 
 // Camera stream video element
 let video;
-let videoWidth = 500;
-let videoHeight = 500;
+let videoWidth = 1000;
+let videoHeight = 1000;
 
 // Canvas
 let canvasWidth = 800;
@@ -35,7 +37,8 @@ const defaultMultiplier = 1.0;
 const defaultStride = 16;
 const defaultInputResolution = 200;
 
-let circle; // = new Circle(300, 300, 100, "black");
+let circle = new Circle(300, 300, 50, "black");
+let rightWrist;
 
 /**
  * Loads a the camera to be used in the demo
@@ -108,15 +111,26 @@ function detectPoseInRealTime(video) {
     });
 
     poses = poses.concat(all_poses);
-    // console.log(keypointCtx);
     input.dispose();
 
     keypointCtx.clearRect(0, 0, videoWidth, videoHeight);
     poses.forEach(({ score, keypoints }) => {
-      // console.log(keypoints);
+      // console.log(keypoints[10]);
       if (score >= minPoseConfidence) {
         drawKeypoints(keypoints, minPartConfidence, keypointCtx);
         drawSkeleton(keypoints, minPartConfidence, keypointCtx);
+      }
+      rightWrist = new Circle(
+        keypoints[10].position.x,
+        keypoints[10].position.y,
+        1,
+        "rightWrist"
+      );
+      if (checkCollision(rightWrist, circle)) {
+        // console.log("true");
+        circle.name = "green";
+      } else {
+        circle.name = "black";
       }
     });
 
