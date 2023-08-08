@@ -19,7 +19,7 @@ import * as posenet from "@tensorflow-models/posenet";
 import * as tf from "@tensorflow/tfjs";
 import { Circle } from "./circle";
 
-const color = "red";
+const color = "blue";
 const boundingBoxColor = "red";
 const lineWidth = 2;
 

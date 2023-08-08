@@ -37,7 +37,7 @@ const defaultMultiplier = 1.0;
 const defaultStride = 16;
 const defaultInputResolution = 200;
 
-let circle = new Circle(300, 300, 50, "black");
+let circle = new Circle(300, 300, 50, "red");
 let rightWrist;
 
 /**
@@ -111,11 +111,11 @@ function detectPoseInRealTime(video) {
     });
 
     poses = poses.concat(all_poses);
+    console.log(poses);
     input.dispose();
 
     keypointCtx.clearRect(0, 0, videoWidth, videoHeight);
     poses.forEach(({ score, keypoints }) => {
-      // console.log(keypoints[10]);
       if (score >= minPoseConfidence) {
         drawKeypoints(keypoints, minPartConfidence, keypointCtx);
         drawSkeleton(keypoints, minPartConfidence, keypointCtx);
@@ -130,7 +130,7 @@ function detectPoseInRealTime(video) {
         // console.log("true");
         circle.name = "green";
       } else {
-        circle.name = "black";
+        circle.name = "red";
       }
     });
 
